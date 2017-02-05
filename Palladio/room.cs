@@ -21,8 +21,8 @@ namespace Palladio
         
         public int x1 { get; set; }
         public int y1 { get; set; }
-        public int x2 { get; set; }
-        public int y2 { get; set; }
+        public int width { get; set; }
+        public int height { get; set; }
         public double area { get; set; }
 
              
@@ -32,7 +32,7 @@ namespace Palladio
             System.Drawing.Pen myPen = new System.Drawing.Pen(color);
             Graphics formGraphics;
             formGraphics = canvas.CreateGraphics();
-            formGraphics.DrawRectangle(myPen, new Rectangle(x1,y1,x2,y2));
+            formGraphics.DrawRectangle(myPen, new Rectangle(x1,y1,width,height));
             myPen.Dispose();
             formGraphics.Dispose();
         }
@@ -40,36 +40,41 @@ namespace Palladio
        public room SplitRoomVert(int split)
 
         {
-            
+            double size;
+            size = area;
+       //     area = (width * height);
             int splitsize = split;
             room temproom = new room { };
-
-            //for (int i = 1; i < splitsize; i++)
+            if (size < 5000)
+            {
+                MessageBox.Show("room too small to split");
+            }
+            else
+            { 
+                //for (int i = 1; i < splitsize; i++)
                 //create the room and add it to the villa
-                temproom.x1 = x1 ;
-                temproom.x2 = x2 ;
-                temproom.y1 = y1 ;
-                temproom.y2 = y2 / splitsize;
-
+                temproom.x1 = x1;
+                temproom.width = width;
+                temproom.y1 = y1;
+                temproom.height = height / splitsize;
+                temproom.area =  (temproom.width * temproom.height);
+            }
             return temproom;
-
-
         }
 
         public room SplitRoomHor(int split)
 
         {
-
             int splitsize = split;
             room temproom = new room { };
 
             //for (int i = 1; i < splitsize; i++)
             //create the room and add it to the villa
             temproom.x1 = x1;
-            temproom.x2 = x2 / splitsize;
+            temproom.width = width / splitsize;
             temproom.y1 = y1;
-            temproom.y2 = y2 ;
-
+            temproom.height  = height  ;
+            temproom.area = (temproom.width * temproom.height);
             return temproom;
 
 
